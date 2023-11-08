@@ -22,6 +22,7 @@ cd $DOT_DIR
 echo "Setup..."
 for f in .??*
 do
-    ln -snfv "$DOT_DIR/$f" "$HOME/$f"
+    echo "Create $f to home directory..."
+    cp -afT "$DOT_DIR/$f" "$HOME/$f"
 done
 tput setaf 2 && echo "✔ Dotfiles installed successfully!" && tput sgr0
