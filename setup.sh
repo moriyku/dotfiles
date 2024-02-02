@@ -23,6 +23,6 @@ echo "Setup..."
 for f in .??*
 do
     echo "Create $f to home directory..."
-    cp -afT "$DOT_DIR/$f" "$HOME/$f"
+    cp -aiT "$DOT_DIR/$f" "$HOME/$f"
 done
 tput setaf 2 && echo "✔ Dotfiles installed successfully!" && tput sgr0
