@@ -17,6 +17,15 @@ if ! has git; then
     sudo apt install -y git
 fi
 
+if ! has nvm; then
+    if ! has curl; then
+        echo "curl is not available. Installing curl..."
+        sudo apt install curl -y
+    fi
+    echo "Install nvm..."
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+fi
+
 cd $DOT_DIR
 
 echo "Setup..."
