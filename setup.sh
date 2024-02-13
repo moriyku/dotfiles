@@ -7,31 +7,45 @@ has() {
   type "$1" > /dev/null 2>&1
 }
 
+print_begin() {
+    echo -e "\n▶️ $1"
+}
+
+print_success() {
+    tput setaf 2
+    echo "✅ $1"
+    tput sgr0
+}
+
 if ! has sudo; then
-    echo "Install sudo..."
+    print_begin "Install sudo..."
     apt install -y sudo
+    print_success "sudo installed."
 fi
 
 if ! has git; then
-    echo "Install git..."
+    print_begin "Install git..."
     sudo apt install -y git
+    print_success "git installed."
 fi
 
 if ! has nvm; then
     if ! has curl; then
-        echo "curl is not available. Installing curl..."
+        print_begin "curl is not available. Installing curl..."
         sudo apt install curl -y
+        print_success "curl installed."
     fi
-    echo "Install nvm..."
+    print_begin "Install nvm..."
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    print_success "nvm installed."
 fi
 
 cd $DOT_DIR
 
-echo "Setup..."
+print_begin "Copying dotfiles to home directory..."
 for f in .??*
 do
-    echo "Create $f to home directory..."
+    print_begin "Create $f to home directory..."
     cp -aiT "$DOT_DIR/$f" "$HOME/$f"
 done
-tput setaf 2 && echo "✔ Dotfiles installed successfully!" && tput sgr0
+print_success "Dotfiles installed successfully!"
