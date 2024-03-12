@@ -25,3 +25,5 @@
 	# Prevents DB password leaks.
 	# Matches patterns like `define('DB_SOME_PASSWORD', 'actual_password')`.
 	patterns = define\\((\"|')DB_[A-Za-z0-9_\\-]*PASSWORD(\"|'),\\s*(\"|').+(\"|')\\)
+[commit]
+	template = ~/.commit_template
