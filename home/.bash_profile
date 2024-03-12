@@ -17,11 +17,5 @@ fi
 # X-Server
 export DISPLAY=localhost:0.0
 
-# Composer
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"
-
-# pipenv
-export PIPENV_VENV_IN_PROJECT=true
-
 # SSH-Agent
 eval `ssh-agent`

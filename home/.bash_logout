@@ -6,4 +6,4 @@ if [ "$SHLVL" = 1 ]; then
 fi
 
 # kill ssh-agent process
-/usr/bin/ssh-agent -k
+ssh-agent -k

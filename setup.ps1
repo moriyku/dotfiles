@@ -22,22 +22,22 @@ if (-not (Has "choco")) {
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 }
 
-# git
+# Install git
 if (-not (Has "git")) {
     Write-Host "Install git..."
     choco install -y git.install
 }
 
-# .gitconfig
-Copy-Item -Path (Join-Path $profileDir ".gitconfig") -Destination (Join-Path $HOME ".gitconfig") -Force -Confirm
-
-# .commit_template
-Copy-Item -Path (Join-Path $homeDir ".commit_template") -Destination (Join-Path $HOME ".commit_template") -Force -Confirm
-
-# vim
+# Install vim
 if (-not (Has "vim")) {
     Write-Host "Install vim..."
     choco install -y vim
 }
+
+# Copy .gitconfig
+Copy-Item -Path (Join-Path $profileDir ".gitconfig") -Destination (Join-Path $HOME ".gitconfig") -Force -Confirm
+
+# Copy .commit_template
+Copy-Item -Path (Join-Path $homeDir ".commit_template") -Destination (Join-Path $HOME ".commit_template") -Force -Confirm
 
 Write-Host "Dotfiles installed successfully!" -ForegroundColor Green

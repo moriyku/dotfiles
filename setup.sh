@@ -17,18 +17,21 @@ print_success() {
     tput sgr0
 }
 
+# Install sudo
 if ! has sudo; then
     print_begin "Install sudo..."
     apt install -y sudo
     print_success "sudo installed."
 fi
 
+# Install git
 if ! has git; then
     print_begin "Install git..."
     sudo apt install -y git
     print_success "git installed."
 fi
 
+# Install nvm
 if ! has nvm; then
     if ! has curl; then
         print_begin "curl is not available. Installing curl..."
@@ -40,8 +43,8 @@ if ! has nvm; then
     print_success "nvm installed."
 fi
 
+# Copy dotfiles to home directory
 cd $DOT_DIR
-
 print_begin "Copying dotfiles to home directory..."
 for f in .??*
 do
