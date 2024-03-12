@@ -14,6 +14,10 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+# Rye
+# export PATH="$HOME/.rye/shims:$PATH"
+source "$HOME/.rye/env"
+
 # X-Server
 export DISPLAY=localhost:0.0
 

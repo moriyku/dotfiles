@@ -31,6 +31,18 @@ if ! has git; then
     print_success "git installed."
 fi
 
+# Install Rye
+if ! has rye; then
+    print_begin "Install Rye..."
+    curl -sSf https://rye-up.com/get | bash
+    # Update PATH
+    source "$HOME/.rye/env"
+    # Shell completion
+    mkdir -p ~/.local/share/bash-completion/completions
+    rye self completion > ~/.local/share/bash-completion/completions/rye.bash
+    print_success "Rye installed."
+fi
+
 # Install nvm
 if ! has nvm; then
     if ! has curl; then
