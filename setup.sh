@@ -34,7 +34,7 @@ fi
 # Install Rye
 if ! has rye; then
     print_begin "Install Rye..."
-    curl -sSf https://rye-up.com/get | bash
+    curl -sSf https://rye.astral.sh/get | bash
     # Update PATH
     source "$HOME/.rye/env"
     # Shell completion
