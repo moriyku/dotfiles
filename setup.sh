@@ -31,6 +31,21 @@ if ! has git; then
     print_success "git installed."
 fi
 
+# diff-highlight
+if [ ! -L /usr/local/bin/diff-highlight ]; then
+    print_begin "Install diff-highlight..."
+    sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+    sudo ln -s /usr/share/doc/git/contrib/diff-highlight/diff-highlight /usr/local/bin/diff-highlight
+    print_success "diff-highlight installed."
+fi
+
+# Install nkf
+if ! has nkf; then
+    print_begin "Install nkf..."
+    sudo apt install -y nkf
+    print_success "nkf installed."
+fi
+
 # Install Rye
 if ! has rye; then
     print_begin "Install Rye..."

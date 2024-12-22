@@ -22,6 +22,18 @@ if (-not (Has "choco")) {
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 }
 
+# Install python
+if (-not (Has "python")) {
+    Write-Host "Install python..."
+    choco install -y python
+}
+
+# Install pip
+if (-not (Has "pip")) {
+    Write-Host "Install pip..."
+    choco install -y pip
+}
+
 # Install git
 if (-not (Has "git")) {
     Write-Host "Install git..."
