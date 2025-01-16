@@ -68,6 +68,10 @@ if ! has nvm; then
     print_begin "Install nvm..."
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     print_success "nvm installed."
+
+    print_begin "Install Node.js..."
+    nvm install --lts
+    print_success "Node.js installed."
 fi
 
 # Copy dotfiles to home directory
