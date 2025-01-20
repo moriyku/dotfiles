@@ -46,6 +46,13 @@ if ! has nkf; then
     print_success "nkf installed."
 fi
 
+# Install curl
+if ! has curl; then
+    print_begin "curl is not available. Installing curl..."
+    sudo apt install curl -y
+    print_success "curl installed."
+fi
+
 # Install Rye
 if ! has rye; then
     print_begin "Install Rye..."
@@ -60,11 +67,6 @@ fi
 
 # Install nvm
 if ! has nvm; then
-    if ! has curl; then
-        print_begin "curl is not available. Installing curl..."
-        sudo apt install curl -y
-        print_success "curl installed."
-    fi
     print_begin "Install nvm..."
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     print_success "nvm installed."
