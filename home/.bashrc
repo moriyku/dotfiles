@@ -116,25 +116,7 @@ else
     export PS1="$PS1 \n\[\033[01;34m\]\$\[\033[00m\] "
 fi
 
-# Activate virtualenv
-function venv {
-  if [ -d ".env" ]; then
-    source .env/bin/activate
-  elif [ -d ".venv" ]; then
-    source .venv/bin/activate
-  elif [ -d "env" ]; then
-    source env/bin/activate
-  elif [ -d "venv" ]; then
-    source venv/bin/activate
-  fi
-}
-
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# VSCode on cmd.exe (WSL)
-function wcode {
-  cmd.exe /c code $@
-}
