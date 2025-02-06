@@ -65,6 +65,10 @@ if ! has rye; then
     print_success "Rye installed."
 fi
 
+# Load nvm if it is already installed
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 # Install nvm
 if ! has nvm; then
     print_begin "Install nvm..."
