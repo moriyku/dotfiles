@@ -20,6 +20,10 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# Define background colors
+DEFAULT_BG_COLOR="#282C34"  # Default background (One Half Dark)
+WIN_BG_COLOR="#002B36"      # Background for Windows directories (Solarized Dark)
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -50,31 +54,29 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    BASE_PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h$ICON\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    BASE_PS1='${debian_chroot:+($debian_chroot)}\u@\h$ICON:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    BASE_PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h\$ICON: \w\a\]$BASE_PS1"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h\: \w\a\]$PS1"
     ;;
 *)
     ;;
 esac
 
-function update_ps1() {
-    # Add Windows / WSL icons
+# Change background color based on the current directory
+function update_bg_colors() {
     case "$(readlink -f "$PWD")" in
-        /mnt/*) ICON="(Win)" ;;  # Windows
-        *)      ICON="" ;;  # Do not display anything for WSL
+        /mnt/*) printf "\033]11;${WIN_BG_COLOR}\007" ;;  # Windows
+        *)      printf "\033]11;${DEFAULT_BG_COLOR}\007" ;;  # WSL
     esac
-
-    PS1="$BASE_PS1"
 }
-# Update PS1 by calling `update_ps1` after each command execution
-PROMPT_COMMAND="update_ps1"
+# Update the background color after each command execution
+PROMPT_COMMAND="update_bg_colors"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
