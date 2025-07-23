@@ -28,10 +28,11 @@ if (-not (Has "python")) {
     choco install -y python
 }
 
-# Install pip
-if (-not (Has "pip")) {
-    Write-Host "Install pip..."
-    choco install -y pip
+# Install uv
+# https://github.com/astral-sh/uv?tab=readme-ov-file#installation
+if (-not (Has "uv")) {
+    Write-Host "Installing uv..."
+    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 }
 
 # Install git

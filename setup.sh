@@ -53,16 +53,11 @@ if ! has curl; then
     print_success "curl installed."
 fi
 
-# Install Rye
-if ! has rye; then
-    print_begin "Install Rye..."
-    curl -sSf https://rye.astral.sh/get | bash
-    # Update PATH
-    source "$HOME/.rye/env"
-    # Shell completion
-    mkdir -p ~/.local/share/bash-completion/completions
-    rye self completion > ~/.local/share/bash-completion/completions/rye.bash
-    print_success "Rye installed."
+# Install uv
+if ! has uv; then
+    print_begin "Install uv..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    print_success "uv installed."
 fi
 
 # Load nvm if it is already installed
