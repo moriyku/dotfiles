@@ -57,6 +57,9 @@ fi
 if ! has uv; then
     print_begin "Install uv..."
     curl -LsSf https://astral.sh/uv/install.sh | sh
+    # Shell autocompletion
+    echo 'eval "$(uv generate-shell-completion bash)"' >> ~/.bashrc
+    echo 'eval "$(uvx --generate-shell-completion bash)"' >> ~/.bashrc
     print_success "uv installed."
 fi
 

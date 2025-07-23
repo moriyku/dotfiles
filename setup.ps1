@@ -33,6 +33,12 @@ if (-not (Has "python")) {
 if (-not (Has "uv")) {
     Write-Host "Installing uv..."
     powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+    # Shell autocompletion
+    if (!(Test-Path -Path $PROFILE)) {
+        New-Item -ItemType File -Path $PROFILE -Force
+    }
+    Add-Content -Path $PROFILE -Value '(& uv generate-shell-completion powershell) | Out-String | Invoke-Expression'
+    Add-Content -Path $PROFILE -Value '(& uvx --generate-shell-completion powershell) | Out-String | Invoke-Expression'
 }
 
 # Install git
