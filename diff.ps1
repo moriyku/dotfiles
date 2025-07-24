@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$dotDir = Join-Path $scriptDir 'home'
+$dotDir = Join-Path $scriptDir 'winprofile'
 
 Get-ChildItem -LiteralPath $dotDir -Force | ForEach-Object {
     if (-not $_.PSIsContainer) {
