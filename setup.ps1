@@ -47,6 +47,20 @@ if (-not (Has "git")) {
     choco install -y git.install
 }
 
+# Install posh-git
+if (-not (Get-Module -ListAvailable -Name posh-git)) {
+    Write-Host "Installing posh-git..."
+    PowerShellGet\Install-Module posh-git -Scope CurrentUser -Force
+
+    # Ensure posh-git is imported in profile
+    if (!(Test-Path -Path $PROFILE)) {
+        New-Item -ItemType File -Path $PROFILE -Force
+    }
+    if (-not (Select-String -Path $PROFILE -Pattern 'Import-Module posh-git' -Quiet)) {
+        Add-Content -Path $PROFILE -Value 'Import-Module posh-git'
+    }
+}
+
 # Install vim
 if (-not (Has "vim")) {
     Write-Host "Install vim..."
