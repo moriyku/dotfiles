@@ -4,10 +4,39 @@ $scriptPath = (Get-Item -Path $MyInvocation.MyCommand.Path).Directory.FullName
 $homeDir = Join-Path $scriptPath "home"
 $profileDir = Join-Path $scriptPath "winprofile"
 
-# Install python
+# Check for Python
 if (-not (Get-Command "python" -ErrorAction SilentlyContinue)) {
-    Write-Host "Installing Python..."
-    winget install --id "Python.Python.3.13" -i --accept-source-agreements --accept-package-agreements
+    Write-Warning @"
+Python is not available in your terminal.
+
+To install Python, please visit the Microsoft Store or download it from:
+
+    https://www.python.org/downloads/windows/
+
+After installation, restart your terminal and run this script again.
+"@
+    exit 1
+}
+
+try {
+    $pythonVersionOutput = & python --version 2>&1
+    if ($pythonVersionOutput -eq "Python") {
+        throw "Python is a placeholder. Manual installation required."
+    }
+    Write-Host "Python is installed: $pythonVersionOutput"
+} catch {
+    Write-Warning @"
+Python is not currently available in your terminal.
+
+On Windows 10/11, Python may be bundled but not installed yet.
+Please run the following command once in PowerShell to trigger the installation via Microsoft Store:
+
+    python
+
+After installation completes, restart your terminal.
+
+"@
+    exit 1
 }
 
 # Install uv
