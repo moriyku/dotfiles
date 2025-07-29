@@ -74,9 +74,44 @@ if (-not (Get-Module -ListAvailable -Name posh-git)) {
 }
 
 # Install vim
-if (-not (Get-Command "vim" -ErrorAction SilentlyContinue)) {
+$vimInstalled = winget list --source winget | Select-String -Pattern '^Vim\s'
+if (-not $vimInstalled) {
     Write-Host "Installing Vim..."
     winget install --id "vim.vim" -i --accept-source-agreements --accept-package-agreements
+}
+# Check if vim is available in PATH
+if (-not (Get-Command "vim" -ErrorAction SilentlyContinue)) {
+    Write-Warning @"
+Vim appears to be installed but is not available in your PATH.
+You may need to restart your terminal or manually add Vim's install directory to your PATH.
+Common install path:
+    C:\Program Files\Vim\vim91
+"@
+
+    # Try to find vim.exe under Program Files
+    $vimPath = Get-ChildItem -Path "C:\Program Files" -Recurse -Filter "vim.exe" -ErrorAction SilentlyContinue |
+        Where-Object { $_.FullName -like "*\Vim\vim*\vim.exe" } |
+        Select-Object -First 1 -ExpandProperty FullName
+
+    if ($vimPath) {
+        Write-Host "`nFound Vim at: $($vimPath)"
+        $confirm = Read-Host "Do you want to add a Set-Alias to '$PROFILE'? (Y/N)"
+        if ($confirm -match '^(Y|y)$') {
+            # Ensure profile exists
+            if (-not (Test-Path -Path $PROFILE)) {
+                New-Item -ItemType File -Path $PROFILE -Force | Out-Null
+            }
+            # Add Set-Alias to PowerShell profile
+            if (-not (Select-String -Path $PROFILE -Pattern 'Set-Alias vim' -Quiet)) {
+                Add-Content -Path $PROFILE -Value "`nSet-Alias vim ""$vimPath"""
+                Write-Host "Alias added to $PROFILE"
+            } else {
+                Write-Host "Alias already exists in $PROFILE"
+            }
+        } else {
+            Write-Host "Alias not added."
+        }
+    }
 }
 
 # Copy .gitconfig
