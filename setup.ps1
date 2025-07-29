@@ -7,7 +7,7 @@ $profileDir = Join-Path $scriptPath "winprofile"
 # Install python
 if (-not (Get-Command "python" -ErrorAction SilentlyContinue)) {
     Write-Host "Installing Python..."
-    winget install --id "Python.Python.3" --silent --accept-source-agreements --accept-package-agreements
+    winget install --id "Python.Python.3.13" -i --accept-source-agreements --accept-package-agreements
 }
 
 # Install uv
@@ -27,7 +27,7 @@ if (-not (Get-Command "uv" -ErrorAction SilentlyContinue)) {
 # Install git
 if (-not (Get-Command "git" -ErrorAction SilentlyContinue)) {
     Write-Host "Installing Git..."
-    winget install --id "Git.Git" --silent --accept-source-agreements --accept-package-agreements
+    winget install --id "Git.Git" -i --accept-source-agreements --accept-package-agreements
 }
 
 # Install posh-git
@@ -47,7 +47,7 @@ if (-not (Get-Module -ListAvailable -Name posh-git)) {
 # Install vim
 if (-not (Get-Command "vim" -ErrorAction SilentlyContinue)) {
     Write-Host "Installing Vim..."
-    winget install --id "vim.vim" --silent --accept-source-agreements --accept-package-agreements
+    winget install --id "vim.vim" -i --accept-source-agreements --accept-package-agreements
 }
 
 # Copy .gitconfig
