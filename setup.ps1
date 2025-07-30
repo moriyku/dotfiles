@@ -1,7 +1,6 @@
 $ErrorActionPreference = "Stop"
 
 $scriptPath = (Get-Item -Path $MyInvocation.MyCommand.Path).Directory.FullName
-$homeDir = Join-Path $scriptPath "home"
 $profileDir = Join-Path $scriptPath "winprofile"
 
 # Check for Python
@@ -118,6 +117,6 @@ Common install path:
 Copy-Item -Path (Join-Path $profileDir ".gitconfig") -Destination (Join-Path $HOME ".gitconfig") -Force -Confirm
 
 # Copy .commit_template
-Copy-Item -Path (Join-Path $homeDir ".commit_template") -Destination (Join-Path $HOME ".commit_template") -Force -Confirm
+Copy-Item -Path (Join-Path $profileDir ".commit_template") -Destination (Join-Path $HOME ".commit_template") -Force -Confirm
 
 Write-Host "Dotfiles installed successfully!" -ForegroundColor Green
