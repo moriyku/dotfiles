@@ -23,7 +23,8 @@ try {
         throw "Python is a placeholder. Manual installation required."
     }
     Write-Host "Python is installed: $pythonVersionOutput"
-} catch {
+}
+catch {
     Write-Warning @"
 Python is not currently available in your terminal.
 
@@ -56,6 +57,12 @@ if (-not (Get-Command "uv" -ErrorAction SilentlyContinue)) {
 if (-not (Get-Command "git" -ErrorAction SilentlyContinue)) {
     Write-Host "Installing Git..."
     winget install --id "Git.Git" -i --accept-source-agreements --accept-package-agreements
+}
+
+# Install NVM for Windows
+if (-not (Get-Command "nvm" -ErrorAction SilentlyContinue)) {
+    Write-Host "Installing NVM for Windows..."
+    winget install -e --id CoreyButler.NVMforWindows --silent --accept-source-agreements --accept-package-agreements
 }
 
 # Install posh-git
@@ -120,3 +127,4 @@ Copy-Item -Path (Join-Path $profileDir ".gitconfig") -Destination (Join-Path $HO
 Copy-Item -Path (Join-Path $profileDir ".commit_template") -Destination (Join-Path $HOME ".commit_template") -Force -Confirm
 
 Write-Host "Dotfiles installed successfully!" -ForegroundColor Green
+Write-Host "Please close this terminal and open a new one to ensure PATH changes (for nvm, vim, posh-git, etc.) are applied." -ForegroundColor Yellow
